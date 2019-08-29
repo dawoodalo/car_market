@@ -18,8 +18,16 @@ def car_detail(request, car_id):
 
 
 def car_create(request):
-	#Complete Me
-	return render(...)
+	form = DestinationForm()
+    if request.method == "POST":
+        form = DestinationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('destination-list')
+    context = {
+        "form": form,
+    }
+    return render(request, 'create.html', context)
 
 
 def car_update(request, car_id):
